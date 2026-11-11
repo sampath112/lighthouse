@@ -1,0 +1,114 @@
+/* ===== SECTION 1 - BEAM INTERACTION ===== */
+.section1 {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  background-color: var(--color-bg-secondary);
+  isolation: isolate;
+}
+
+/* Image with overlay gradient */
+.section1-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  filter: brightness(0.65) contrast(1.1) saturate(1.1);
+  transition: filter var(--duration-slow) var(--ease-out);
+}
+
+.section1:hover .section1-img {
+  filter: brightness(0.7) contrast(1.15) saturate(1.15);
+}
+
+/* Dark overlay for better text contrast */
+.section1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 11, 21, 0.3) 0%,
+    rgba(5, 11, 21, 0.5) 50%,
+    rgba(5, 11, 21, 0.3) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Refined beam effect */
+.section1-beam {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 200, 0.6),
+    rgba(255, 255, 180, 0.3) 50%,
+    transparent 75%
+  );
+  transform-origin: 0% 55%;
+  clip-path: polygon(0% 40%, 100% 10%, 100% 90%, 0% 60%);
+  opacity: 0.75;
+  filter: blur(8px);
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+/* Heading container */
+.section1-heading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+  width: 90%;
+  max-width: 900px;
+}
+
+/* Individual letter animation */
+.beam-letter {
+  display: inline-block;
+  font-family: var(--font-family-primary);
+  font-size: clamp(2rem, 5vw, var(--font-size-5xl));
+  font-weight: 700;
+  color: white;
+  opacity: 0;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8),
+               0 2px 8px rgba(0, 0, 0, 0.6),
+               0 0 30px rgba(255, 255, 200, 0.3);
+  transition: opacity var(--duration-normal) var(--ease-out),
+              text-shadow var(--duration-fast) var(--ease-out),
+              transform var(--duration-normal) var(--ease-spring);
+  letter-spacing: 0.5px;
+}
+
+.beam-letter:hover {
+  transform: translateY(-2px) scale(1.05);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8),
+               0 2px 8px rgba(0, 0, 0, 0.6),
+               0 0 40px rgba(255, 255, 200, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section1 {
+    min-height: 500px;
+  }
+  
+  .section1-heading {
+    width: 85%;
+  }
+  
+  .section1-beam {
+    width: 300px;
+    height: 300px;
+  }
+}
